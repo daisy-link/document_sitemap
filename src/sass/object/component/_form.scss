@@ -1,0 +1,111 @@
+@use "../../module/import" as *;
+/*
+*
+* form
+*
+*/
+.c-form {
+    flex: 1;
+    &__leadText {
+        margin-bottom: 20px;
+    }
+}
+
+
+textarea, input[type=text], input[type=date], input[type=time], input[type=email], input[type=password], input[type=number], input[type=url], input[type=search], input[type=tel] {
+    border: 1px solid var(--bordercolor-input);
+    padding: 10px 20px!important;
+    border-radius: 4px;
+    width: 100%;
+    background-color: var(--bgcolor-white);
+    @include fs(14);
+    margin-bottom: 5px!important;
+    &.is-error {
+        border: 1px solid var(--color-error);
+    }
+}
+input[type=file] {
+    margin-bottom: 5px;
+}
+
+.errorText {
+    color: var(--color-error);
+}
+.c-formItem {
+    margin-bottom: 10px;
+    @include mq(max, sm) {
+        margin-bottom: 0px;
+    }
+    &__head {
+        margin-bottom: 10px;
+        @include mq(max, sm) {
+            margin-bottom: 5px;
+        }
+    }
+    &__ttl {
+        margin-bottom: 5px;
+        @include fs(14);
+    }
+    &__subttl {
+        margin-bottom: 5px;
+        @include fs(12);
+    }
+    &__ttlHelp {
+
+    }
+}
+.c-formGroup {
+    display: flex;
+    margin-left: -5px;
+    margin-right: -5px;
+    > * {
+        margin: 0 5px;
+    }
+}
+.c-formItem__btn {
+    margin-top: 40px;
+    @include mq(max, sm) {
+        margin-top: 20px;
+    }
+    &.--middle {
+        margin-bottom: 40px;
+    }
+    &.--center {
+        display: flex;
+        justify-content: center;
+        flex-flow: wrap;
+    }
+}
+
+.c-fileInpu {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    &__preview {
+        margin-right: 15px;
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+    label {
+        @include fs(12);
+        display: inline-block;
+        border-radius: 4px;
+        color: var(--color-white);
+        padding: 5px 10px;
+        margin: 10px 0;
+        transition: .3s;
+        background-color: var(--bgcolor-clearblue);
+        cursor: pointer;
+        &:hover {
+            opacity: .9;
+            transition: .3s;
+        }
+    }
+    input {
+        display: none;
+    }
+}

@@ -1,0 +1,33 @@
+{% import '_constant.njk' as const %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+{% if description %}<meta name="description" content="{{ description }}">{% endif %}
+{% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+<link rel="shortcut icon" href="">
+<link rel="icon" href="">
+<title>{% if pagetitle %}{{ pagetitle }}｜{% endif %}{{ const.siteName }}</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
+<link rel="stylesheet" href="{{ const.cssDir }}app.css">
+{% block css %}{% endblock -%}
+</head>
+<body>
+
+<main class="l-main">
+    <div class="l-contents">
+        {% block contents %}{% endblock %}
+    </div>
+</main>
+<footer class="l-footer">
+    Ⓒ DAISY Inc. All Right Reserved
+</footer>
+<script src="{{ const.jsDir }}app.js"></script>
+{% block js %}{% endblock -%}
+</body>
+</html>
+
+

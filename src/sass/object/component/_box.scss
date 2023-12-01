@@ -1,0 +1,17 @@
+@use "../../module/import" as *;
+/*
+*
+* box
+*
+*/
+.c-box {
+    padding: 30px;
+    background-color: var(--bgcolor-white);
+    border-radius: 10px;
+    @include mq(max, sm) {
+        padding: 15px;
+    }
+    &__full {
+        height: 100%;
+    }
+}

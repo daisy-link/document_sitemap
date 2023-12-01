@@ -1,0 +1,14 @@
+@use "../module/import" as *;
+/*
+*
+* main
+*
+*/
+.l-main {
+    min-height: 100%;
+    display: flex;
+}
+.l-header + .l-main {
+    padding-top: 55px;
+    min-height: 100%;
+}

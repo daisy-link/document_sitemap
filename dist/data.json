@@ -1,0 +1,190 @@
+[
+    {
+        "title": "お問い合わせ",
+        "comment": "凡例的に利用可能なお問い合わせブロック",
+        "jsonData": {
+            "classNames": [],
+            "dataItemNumber": "1",
+            "title": "お問い合わせ",
+            "comment": "",
+            "children": [
+                {
+                    "classNames": [],
+                    "dataItemNumber": "2",
+                    "title": "確認",
+                    "comment": "",
+                    "children": [
+                        {
+                            "classNames": [],
+                            "dataItemNumber": "3",
+                            "title": "完了",
+                            "comment": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "title": "企業サイトサンプル",
+        "comment": "よくある企業サイトのサンプルブロック",
+        "jsonData": {
+            "classNames": [],
+            "dataItemNumber": "1",
+            "title": "トップページ",
+            "comment": "・お知らせ等を表示",
+            "children": [
+              {
+                "classNames": [],
+                "dataItemNumber": "2",
+                "title": "事業案内",
+                "comment": "各事業のINDEXページ",
+                "children": [
+                  {
+                    "classNames": [],
+                    "dataItemNumber": "4",
+                    "title": "〇〇事業紹介",
+                    "comment": "〇〇事業の説明等を表示"
+                  },
+                  {
+                    "classNames": [],
+                    "dataItemNumber": "3",
+                    "title": "〇〇事業紹介",
+                    "comment": "〇〇事業の説明等を表示",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "classNames": [],
+                "dataItemNumber": "7",
+                "title": "実績紹介",
+                "comment": "実績紹介のINDEXページ<br>一定件数以上はページングで表示",
+                "children": [
+                  {
+                    "classNames": [
+                      "--post"
+                    ],
+                    "dataItemNumber": "10",
+                    "title": "〇〇実績紹介",
+                    "comment": "実績の詳細の内容を表示<br>CMS投稿で自由に投稿が可能"
+                  }
+                ]
+              },
+              {
+                "classNames": [],
+                "dataItemNumber": "5",
+                "title": "会社案内",
+                "comment": "会社情報の表示",
+                "children": [
+                  {
+                    "classNames": [
+                      "--link"
+                    ],
+                    "dataItemNumber": "6",
+                    "title": "GoogleMap",
+                    "comment": "GoogleMapへリンク"
+                  }
+                ]
+              },
+              {
+                "classNames": [],
+                "dataItemNumber": "8",
+                "title": "採用情報",
+                "comment": "採用に関する内容を表示"
+              },
+              {
+                "classNames": [],
+                "dataItemNumber": "1",
+                "title": "お問い合わせ",
+                "comment": "",
+                "children": [
+                  {
+                    "classNames": [],
+                    "dataItemNumber": "2",
+                    "title": "確認",
+                    "comment": "",
+                    "children": [
+                      {
+                        "classNames": [],
+                        "dataItemNumber": "3",
+                        "title": "完了",
+                        "comment": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "classNames": [],
+                "dataItemNumber": "9",
+                "title": "プライバシーポリシー",
+                "comment": ""
+              }
+            ]
+          }
+    },
+
+    {
+        "title": "条件分岐",
+        "comment": "凡例的に利用可能なログイン時の条件分岐ブロック",
+        "jsonData":     {
+            "classNames": [],
+            "dataItemNumber": "1",
+            "dataItemBorderColor": "undefined",
+            "dataItemBackgroundColor": "undefined",
+            "title": "ログイン",
+            "comment": "IDPWでログイン",
+            "children": [
+              {
+                "classNames": [
+                  "--rhombus"
+                ],
+                "dataItemNumber": "2",
+                "dataItemBorderColor": "",
+                "dataItemBackgroundColor": "",
+                "title": "認証",
+                "comment": "ログイン認証を行う",
+                "children": [
+                  {
+                    "classNames": [
+                      "--conditions"
+                    ],
+                    "dataItemNumber": "2",
+                    "dataItemBorderColor": "undefined",
+                    "dataItemBackgroundColor": "undefined",
+                    "title": "（認証成功）情報を取得",
+                    "comment": "ユーザー情報の取得",
+                    "children": [
+                      {
+                        "classNames": [],
+                        "dataItemNumber": "3",
+                        "dataItemBorderColor": "undefined",
+                        "dataItemBackgroundColor": "undefined",
+                        "title": "（取得成功）ダッシュボード",
+                        "comment": "マイページのダッシュボードを表示"
+                      },
+                      {
+                        "classNames": [],
+                        "dataItemNumber": "4",
+                        "dataItemBorderColor": "undefined",
+                        "dataItemBackgroundColor": "undefined",
+                        "title": "（取得失敗）エラー画面",
+                        "comment": "エラー画面を表示"
+                      }
+                    ]
+                  },
+                  {
+                    "classNames": [],
+                    "dataItemNumber": "4",
+                    "dataItemBorderColor": "undefined",
+                    "dataItemBackgroundColor": "undefined",
+                    "title": "（認証失敗）エラー画面",
+                    "comment": "エラー画面を表示"
+                  }
+                ]
+              }
+            ]
+          }
+    }
+]

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="shortcut icon" href="">
+  <link rel="icon" href="">
+  <title>SITEMAP｜builder</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
+  <link rel="stylesheet" href="./assets/css/app.css">
+</head>
+
+<body>
+  <main class="l-main">
+    <div class="l-contents">
+      <div class="c-box c-box__full">
+        <div class="c-pageLists">
+          <div class="c-pageLists__cover">
+            <div class="c-pageLists__coverItem">
+              <h3 class="--mainTitle u-text-lightgray"></h3>
+              <p class="--mainComment u-text-lightgray"></p>
+            </div>
+            <div class="c-pageLists__control">
+              <ul>
+                <li>
+                  <div class="--count">
+                    <span class="itemCount">0</span>
+                  </div>
+                </li>
+                <li>
+                  <label class="c-smBtn"><input type="file" id="jsonInput" accept=".json"><span class="u-icon --load">load</span></label>
+                </li>
+                <li>
+                  <button type="button" class="c-smBtn saveBtn"><span class="u-icon --download">save</span></button>
+                </li>
+                <li>
+                  <div class="c-toggle-switch">
+                    <input id="moveLock" name="moveLock" type="checkbox">
+                    <label for="moveLock">移動停止</label>
+                  </div>
+                </li>
+                <li>
+                  <div class="c-selectbox">
+                    <select name="displayPattern" class="changeDisplay">
+                      <option value="0">リスト形式</option>
+                      <option value="1">ブロック形式</option>
+                    </select>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="c-pageLists__inputFloat is-close">
+            <div class="--close"></div>
+            <div class="c-pageLists__inputArea">
+              <div class="c-pageLists__component">
+                <div class="c-form">
+                  <form>
+                    <dl class="c-formItem">
+                      <dt class="c-formItem__head">
+                        <div class="c-formItem__ttl"> Module </div>
+                      </dt>
+                      <dd>
+                        <div class="c-pageLists__ModuleSelect">
+                          <span class="moduleChoice openChoice">Choose</span>
+                          <div class="c-moduleChoice moduleChoiceList">
+                          </div>
+                        </div>
+                      </dd>
+                    </dl>
+                    <div class="c-formItem__btn --center">
+                      <button type="button" class="c-btn --next addModuleBtn">追加する</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="c-pageLists__canvas">
+            <div class="c-pageLists__list  --block">
+              <ul></ul>
+            </div>
+          </div>
+          <template id="pageTemplate">
+            <div class="--pageWrapper">
+              <div class="--page" draggable="true" data-item-number="" data-border-color="" data-background-color="">
+                <p class="--title">
+                  <a href="{url}" class="--url" target="_blank" rel="noopener noreferrer"> {title} </a>
+                </p>
+                <div class="--comment">{comennt}</div>
+                <span class="--del"></span>
+                <span class="--update"></span>
+              </div>
+            </div>
+          </template>
+          <template id="inputTemplate">
+            <div class="c-pageLists__input">
+              <div class="c-form">
+                <form>
+                  <dl class="c-formItem">
+                    <dt class="c-formItem__head">
+                      <div class="c-formItem__ttl"> Item </div>
+                    </dt>
+                    <dd>
+                      <div>
+                        <input type="text" name="title" minlength="100" placeholder="タイトルなど">
+                      </div>
+                      <div>
+                        <textarea name="comment" maxlength="500" rows="3" placeholder="簡単な説明など"></textarea>
+                      </div>
+                    </dd>
+                  </dl>
+                  <dl class="c-formItem">
+                    <dt class="c-formItem__head">
+                      <div class="c-formItem__ttl"> Option </div>
+                    </dt>
+                    <dd>
+                      <div>
+                        <div class="c-formItem__subttl"> link </div>
+                        <input type="url" name="url" minlength="100" placeholder="https://">
+                      </div>
+                      <div>
+                        <div class="c-formItem__subttl"> 表示オプション </div>
+                        <div class="c-radio dispOption">
+                          <label>
+                            <input type="radio" name="dispOption" value="0" checked>
+                            <span>標準</span>
+                          </label>
+                        </div>
+                        <div class="c-formGroup">
+                          <div>
+                            <div class="c-formItem__subttl"> 枠線色 </div>
+                            <div class="c-selectbox">
+                              <select name="borderColor" class="colorList">
+                                <option value="0">Choose</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="c-formItem__subttl"> 背景色 </div>
+                            <div class="c-selectbox">
+                              <select name="backgroundColor" class="colorList">
+                                <option value="0">Choose</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </dd>
+                  </dl>
+                  <div class="c-formItem__btn --center">
+                    <button type="button" class="c-btn --next js-btnAction addPageBtn">変更する</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </template>
+          <template id="moduleTemplate">
+            <label>
+              <input type="radio" name="module" value="{moduleId}">
+              <div>
+                <p class="c-radio__title">{title}</p>
+                <p class="u-text-suppl">{comment}</p>
+              </div>
+            </label>
+          </template>
+          <template id="radioTemplate">
+            <label>
+              <input type="radio" name="" value="">
+              <span></span>
+            </label>
+          </template>
+          <div class="c-modal">
+            <div class="c-modal__content">
+              <div class="c-modal__close"></div>
+              <div class="c-modal__innner">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="l-footer"> Ⓒ DAISY Inc. All Right Reserved </footer>
+  <script src="./assets/js/app.js"></script>
+  <script>
+    let dragItem;
+    let updateItem;
+    let pages = 0;
+    let itemId = 0;
+    const Colors = {
+      10: {
+        'name': '赤',
+        'data': 'red',
+      },
+      20: {
+        'name': '橙',
+        'data': 'orange',
+      },
+      30: {
+        'name': '黄',
+        'data': 'yellow',
+      },
+      40: {
+        'name': '緑',
+        'data': 'green',
+      },
+      50: {
+        'name': '青',
+        'data': 'blue',
+      },
+      60: {
+        'name': '藍',
+        'data': 'indigo',
+      },
+      70: {
+        'name': '紫',
+        'data': 'purple',
+      },
+      80: {
+        'name': '灰',
+        'data': 'gray',
+      },
+      100: {
+        'name': '透明',
+        'data': 'transparent',
+      },
+    };
+    const DispOptions = {
+      10: {
+        'name': '見出し',
+        'data': '--heading',
+      },
+      20: {
+        'name': '破線',
+        'data': '--explanation',
+      },
+      30: {
+        'name': '複数',
+        'data': '--post',
+      },
+      40: {
+        'name': '菱形',
+        'data': '--rhombus',
+      },
+    };
+    const appPageList = document.querySelector('.c-pageLists');
+    const listArea = document.querySelector('.c-pageLists__list');
+    const pageListElement = document.querySelector('.c-pageLists__list ul');
+    const inputTemplate = document.getElementById('inputTemplate');
+    const pageTemplate = document.getElementById('pageTemplate');
+    const modalItem = document.querySelector('.c-modal');
+    // load Action
+    window.addEventListener('load', (event) => {
+      var inputArea = inputTemplate.content.cloneNode(true);
+      inputArea.querySelector('[type="button"]').textContent = '追加する';
+      document.querySelector('.c-pageLists__inputArea').prepend(inputArea);
+      document.getElementById('')
+      counterPage();
+      buildModuleList();
+      buildColorList();
+      dispOptionsList();
+    });
+    // browser back forward Action
+    window.addEventListener('popstate', function(event) {
+      if (event.state && event.state.pageList) {
+        appPageList.innerHTML = event.state.pageList;
+      }
+    });
+    // click Action
+    document.addEventListener('click', (event) => {
+      const pageListElement = document.querySelector('.c-pageLists__list ul');
+      const inputTemplate = document.getElementById('inputTemplate');
+      const pageTemplate = document.getElementById('pageTemplate');
+      /** 登録モーダル制御 */
+      if (event.target.closest('.c-pageLists__inputFloat') && event.target.classList.contains('--close')) {
+        const floatItem = document.querySelector('.c-pageLists__inputFloat');
+        if (floatItem.classList.contains('is-close')) {
+          floatItem.classList.remove("is-close");
+        } else {
+          floatItem.classList.add("is-close");
+        }
+      }
+      /** 保存制御 */
+      if (event.target.classList.contains('saveBtn')) {
+        convertToJSON(pageListElement);
+      }
+      /** モジュール追加制御 */
+      if (event.target.classList.contains('addModuleBtn')) {
+        var selectedRadio = document.querySelector('.moduleChoiceList input[type="radio"]:checked');
+        if (selectedRadio == null) {
+          alert('モジュールを選択してください。');
+          return false;
+        }
+        try {
+          var tagetData = moduleData[selectedRadio.value].jsonData;
+          const moduleJSON = {
+            title: "",
+            explanation: "",
+            data: [tagetData],
+          };
+          buildList(moduleJSON, true);
+          selectedRadio.checked = false;
+          document.querySelector('.moduleChoice').textContent = 'Choose';
+          removeNewItem();
+          historyPage();
+        } catch (error) {
+          alert('モジュールの読み込みに失敗しました。');
+        }
+      }
+      /** 登録・更新処理制御 */
+      if (event.target.classList.contains('addPageBtn')) {
+        removeNewItem();
+        var inputTitle = event.target.closest('form').querySelector('[name="title"]');
+        var inputComment = event.target.closest('form').querySelector('[name="comment"]');
+        var inputUrl = event.target.closest('form').querySelector('[name="url"]');
+        var inputBorderColor = event.target.closest('form').querySelector('[name="borderColor"]');
+        var inputBackgroundColor = event.target.closest('form').querySelector('[name="backgroundColor"]');
+        var inputDispOptions = event.target.closest('form').querySelectorAll('[name="dispOption"]');
+        if (inputTitle.value === '') {
+          alert('タイトルを入力してください。');
+          return false;
+        }
+        if (inputUrl.value && !isValidURL(inputUrl.value)) {
+          alert('linkはURL形式で入力してください。');
+          return false;
+        }
+        var page = pageTemplate.content.cloneNode(true);
+        var numberItem = page.querySelector('[data-item-number]');
+        var pageItem = page.querySelector('.--page');
+        var title = page.querySelector('.--title');
+        var comment = page.querySelector('.--comment');
+        var url = page.querySelector('.--url');
+        if (updateItem) {
+          pageItem = updateItem;
+          title = updateItem.querySelector('.--title');
+          comment = updateItem.querySelector('.--comment');
+          url = updateItem.querySelector('.--url');
+        }
+        comment.innerHTML = __Escape(inputComment.value).replace(/\n/g, "<br>");
+        pageItem.className = '--page';
+        inputDispOptions.forEach(option => {
+          if (option.checked) {
+            if (DispOptions[option.value] != undefined) {
+              pageItem.classList.add(DispOptions[option.value].data);
+            }
+          }
+        });
+        if (Colors[inputBorderColor.value] != undefined) {
+          pageItem.setAttribute('data-border-color', Colors[inputBorderColor.value].data);
+        } else {
+          pageItem.setAttribute('data-border-color', '');
+        }
+        if (Colors[inputBackgroundColor.value] != undefined) {
+          pageItem.setAttribute('data-background-color', Colors[inputBackgroundColor.value].data);
+        } else {
+          pageItem.setAttribute('data-background-color', '');
+        }
+        if (updateItem) {
+          /* 更新 */
+          if (inputUrl.value) {
+            if (url) {
+              url.setAttribute('href', inputUrl.value);
+              url.innerHTML = __Escape(inputTitle.value);
+            } else {
+              var linkElement = document.createElement('a');
+              linkElement.setAttribute('target', '_blank');
+              linkElement.setAttribute('rel', 'noopener noreferrer');
+              linkElement.classList.add('--url');
+              linkElement.setAttribute('href', inputUrl.value);
+              linkElement.innerHTML = __Escape(inputTitle.value);
+              title.innerHTML = '';
+              title.appendChild(linkElement);
+            }
+          } else {
+            title.innerHTML = __Escape(inputTitle.value);
+          }
+          hideModal();
+        } else {
+          /* 新規 */
+          if (inputUrl.value) {
+            url.setAttribute('href', inputUrl.value);
+            url.innerHTML = __Escape(inputTitle.value);
+          } else {
+            title.innerHTML = __Escape(inputTitle.value);
+          }
+          pageItem.classList.add("--new");
+          itemId++;
+          numberItem.setAttribute('data-item-number', itemId);
+          var createPageElement = document.createElement('li');
+          createPageElement.appendChild(page);
+          pageListElement.prepend(createPageElement);
+        }
+        inputTitle.value = '';
+        inputComment.value = '';
+        inputUrl.value = '';
+        inputBorderColor.value = 0;
+        inputBackgroundColor.value = 0;
+        inputDispOptions.forEach(option => {
+          if (option.value === '0') {
+            option.checked = true;
+          }
+        });
+        page = null;
+        updateItem = null;
+        historyPage();
+        counterPage();
+        moveLock();
+      }
+      /** 削除処理制御 */
+      if (event.target.classList.contains('--del')) {
+        var targetElement = event.target.closest('.--page');
+        var nextElement = targetElement.parentNode.nextElementSibling;
+        var confMessage = 'アイテムを削除してよろしいですか？';
+        if (nextElement !== null && nextElement.tagName === "UL") {
+          confMessage = confMessage + '\n※ 配下のアイテムも削除されます。';
+        }
+        var result = confirm(confMessage);
+        if (result) {
+          event.target.closest('li').remove();
+          counterPage();
+          historyPage();
+          pageListArrange();
+        }
+      }
+      /** 編集画面表示制御 */
+      if (event.target.classList.contains('--update')) {
+        updateItem = event.target.closest('.--page');
+        var inputArea = inputTemplate.content.cloneNode(true);
+        var inputTitle = inputArea.querySelector('[name="title"]');
+        var inputComment = inputArea.querySelector('[name="comment"]');
+        var inputUrl = inputArea.querySelector('[name="url"]');
+        var inputBorderColor = inputArea.querySelector('[name="borderColor"]');
+        setColorOption(inputBorderColor);
+        var inputBackgroundColor = inputArea.querySelector('[name="backgroundColor"]');
+        setColorOption(inputBackgroundColor);
+        setDispOption(inputArea.querySelector('.dispOption'), 'dispOption');
+        var inputDispOptions = inputArea.querySelectorAll('[name="dispOption"]');
+        var title = updateItem.querySelector('.--title');
+        var comment = updateItem.querySelector('.--comment');
+        var url = updateItem.querySelector('.--url');
+        var borderColor = updateItem.getAttribute('data-border-color');
+        var backgroundColor = updateItem.getAttribute('data-background-color');
+        if (url) {
+          inputUrl.value = url.href;
+          inputTitle.value = url.textContent;
+        } else {
+          inputTitle.value = title.textContent;
+        }
+        inputComment.value = __Unescape(comment.innerHTML).replace(/<br\s*\/?>/g, '\n');
+        var notDispOptionClass = true;
+        Object.entries(DispOptions).forEach(([key, option]) => {
+          if (updateItem.classList.contains(option.data)) {
+            inputDispOptions.forEach(element => {
+              if (key == element.value) {
+                element.checked = true;
+                notDispOptionClass = false;
+              }
+            });
+          }
+        });
+        if (notDispOptionClass) {
+          inputDispOptions.forEach(option => {
+            if (option.value === '0') {
+              option.checked = true;
+            }
+          });
+        }
+        const reversedColors = {};
+        for (const key in Colors) {
+          const value = Colors[key].data;
+          reversedColors[value] = key;
+        }
+        inputBorderColor.value = 0;
+        if (reversedColors[borderColor]) {
+          inputBorderColor.value = reversedColors[borderColor];
+        }
+        inputBackgroundColor.value = 0;
+        if (reversedColors[backgroundColor]) {
+          inputBackgroundColor.value = reversedColors[backgroundColor];
+        }
+        showModal(inputArea);
+      }
+      /** 編集画面クローズ制御 */
+      if (event.target.classList.contains('c-modal__close')) {
+        hideModal();
+        updateItem = null;
+      }
+      /** モジュールの表示制御 */
+      if (event.target.classList.contains('openChoice')) {
+        if (event.target.classList.contains('is-open')) {
+          event.target.classList.remove("is-open");
+        } else {
+          event.target.classList.add("is-open");
+        }
+      }
+    });
+    // change Action
+    document.addEventListener('change', (event) => {
+      const listArea = document.querySelector('.c-pageLists__list');
+      /** 表示形式制御 */
+      if (event.target.classList.contains('changeDisplay')) {
+        if (event.target.value == 1) {
+          listArea.classList.add("--block");
+        } else {
+          listArea.classList.remove("--block");
+        }
+        historyPage();
+      }
+      /** json 読み込み制御 */
+      if (event.target.id === 'jsonInput') {
+        loadJSON();
+      }
+      /** モジュール選択時制御 */
+      if (event.target.closest('.c-pageLists__ModuleSelect') != null) {
+        var selectedValue = event.target.value;
+        var selectedTitle = event.target.nextElementSibling.querySelector('.c-radio__title').textContent;
+        document.querySelector('.moduleChoice').textContent = selectedTitle;
+        document.querySelector('.moduleChoice').classList.remove("is-open");
+      }
+      /** 移動禁止制御 */
+      if (event.target.id === 'moveLock') {
+        moveLock()
+      }
+    });
+    // dblclick Action
+    document.addEventListener("dblclick", function(event) {
+      if (event.target.closest('.c-pageLists__coverItem') != null) {
+        var inputElement = document.createElement("input");
+        inputElement.setAttribute("type", "text");
+        inputElement.setAttribute("minlength", "100");
+        inputElement.value = event.target.innerText;
+        event.target.parentNode.replaceChild(inputElement, event.target);
+        var tagName = event.target.tagName;
+        var setClass = '--mainTitle';
+        if (tagName == 'P') {
+          setClass = '--mainComment';
+        }
+        inputElement.addEventListener("blur", function() {
+          var newElement = document.createElement(tagName);
+          newElement.classList.add(setClass);
+          newElement.innerHTML = '';
+          if (inputElement.value) {
+            newElement.innerHTML = __Escape(inputElement.value);
+          }
+          inputElement.parentNode.replaceChild(newElement, inputElement);
+        });
+        inputElement.focus();
+      }
+    });
+    // ドラック処理開始時
+    document.addEventListener('dragstart', (event) => {
+      removeNewItem();
+      dragItem = event.target.closest('li');
+      if (event.target.classList.contains('--heading')) {
+        dragItem.parentNode.querySelectorAll('li > ul').forEach(item => {
+          item.classList.add("--drag");
+        });
+      }
+      dragItem.classList.add("--drag");
+    });
+    // ドラッグ中
+    document.addEventListener('drag', (event) => {});
+    // ドロップエリアに入った時
+    document.addEventListener('dragenter', (event) => {
+      // if (event.target.closest('.--drag') == null) {
+      //     // if (event.target.classList.contains('--page') || event.target.closest('.--page') !== null) {
+      //     //     event.target.closest('.--page').classList.add("--dorop");
+      //     // }
+      // }
+    });
+    // ドロップエリア内にある時
+    document.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      if (event.target.closest('.--drag') == null) {
+        if (event.target.classList.contains('--pageWrapper')) {
+          event.target.closest('.--pageWrapper').classList.add("--dorop");
+        }
+        if (event.target.classList.contains('--pageWrapper') || event.target.closest('.--pageWrapper') != null) {
+          event.target.closest('.--pageWrapper').classList.add("--doropWrapper");
+        }
+        var headingItem = dragItem.querySelector('.--heading');
+        if (headingItem == null && (event.target.classList.contains('--page') || event.target.closest('.--page') != null) && !(event.target.classList.contains('--heading') || event.target.closest('.--heading') != null)) {
+          event.target.closest('.--page').classList.add("--dorop");
+        }
+      }
+    });
+    // ドロップエリアから離れた時
+    document.addEventListener('dragleave', (event) => {
+      if (event.target.closest('.--drag') == null) {
+        var targetClasses = ['--title', '--comment', '--del', '--update'];
+        if (targetClasses.every(className => !event.target.classList.contains(className))) {
+          if (event.target.classList.contains('--pageWrapper')) {
+            event.target.closest('.--pageWrapper').classList.remove("--dorop");
+          }
+          if (event.target.classList.contains('--pageWrapper') || event.target.closest('.--pageWrapper') != null) {
+            event.target.closest('.--pageWrapper').classList.remove("--doropWrapper");
+          }
+          if (event.target.classList.contains('--page') || event.target.closest('.--page') != null) {
+            event.target.closest('.--page').classList.remove("--dorop");
+          }
+        }
+      }
+    });
+    // ドラッグ終了時
+    document.addEventListener('dragend', (event) => {
+      postDragProcessing(event);
+    });
+    // ドロップ時
+    document.addEventListener("drop", (event) => {
+      var savePage = false;
+      var targetPageElement = null;
+      if (event.target.closest('.--drag') == null && event.target.closest('.--heading') == null) {
+        var headingItem = dragItem.querySelector('.--heading');
+        if (headingItem == null && (event.target.classList.contains('--page') || event.target.closest('.--page') != null)) {
+          targetPageElement = event.target.closest('.--page');
+          var nextElement = targetPageElement.parentNode.nextElementSibling;
+          if (nextElement !== null && nextElement.tagName === "UL") {
+            /* 子の追加 */
+            nextElement.prepend(dragItem);
+          } else {
+            /* 子の作成 */
+            var createULElement = document.createElement('ul');
+            createULElement.prepend(dragItem);
+            targetPageElement.parentNode.insertAdjacentElement('afterend', createULElement);
+          }
+          savePage = true;
+        }
+        if (event.target.classList.contains('--pageWrapper')) {
+          targetPageElement = event.target.querySelector('.--page');
+          event.target.closest('li').insertAdjacentHTML('beforebegin', dragItem.outerHTML);
+          dragItem.parentNode.removeChild(dragItem);
+          savePage = true;
+        }
+      }
+      targetPageElement = null;
+      postDragProcessing(event);
+      if (savePage) {
+        historyPage();
+      }
+    });
+
+    function postDragProcessing(event) {
+      document.querySelectorAll('.--doropWrapper').forEach(item => {
+        item.classList.remove('--doropWrapper');
+      });
+      document.querySelectorAll('.--dorop').forEach(item => {
+        item.classList.remove('--dorop');
+      });
+      document.querySelectorAll('.--drag').forEach(item => {
+        item.classList.remove('--drag');
+      });
+      pageListArrange();
+      dragItem = null;
+    }
+
+    function pageListArrange() {
+      const pageListElement = document.querySelector('.c-pageLists__list ul');
+      //初期化
+      pageListElement.querySelectorAll('.--pageWrapper').forEach(function(item) {
+        item.classList.remove('is-only');
+        item.classList.remove('is-rhombus');
+      });
+      pageListElement.querySelectorAll('ul').forEach(function(item) {
+        var childCount = item.children.length;
+        if (childCount <= 1) {
+          var onlyItem = item.querySelector('.--pageWrapper');
+          if (onlyItem) {
+            onlyItem.classList.add('is-only');
+          }
+        }
+      });
+      pageListElement.querySelectorAll('.--page').forEach(function(item) {
+        if (item.classList.contains('--rhombus')) {
+          item.closest('.--pageWrapper').classList.add('is-rhombus');
+        }
+      });
+    }
+    // モーダルクローズ
+    function hideModal() {
+      const modalItem = document.querySelector('.c-modal');
+      modalItem.style.display = "none";
+    }
+
+    function showModal(content) {
+      const modalItem = document.querySelector('.c-modal');
+      modalItem.animate([{
+        opacity: '0'
+      }, {
+        opacity: '1'
+      }], 200);
+      modalItem.style.display = "flex";
+      modalItem.querySelector('.c-modal__innner').innerHTML = '';
+      modalItem.querySelector('.c-modal__innner').appendChild(content);
+    }
+
+    function convertToJSON(element) {
+      function convertElementToJSON(element) {
+        if (!element) {
+          return null;
+        }
+        const json = {};
+        const pageElement = element.querySelector(".--page");
+        if (pageElement) {
+          const classNames = Array.from(pageElement.classList).filter(
+            (className) => className !== "--page");
+          json.classNames = classNames;
+          json.dataItemNumber = pageElement.getAttribute("data-item-number") ?? '';
+          json.dataItemBorderColor = pageElement.getAttribute("data-border-color") ?? '';
+          json.dataItemBackgroundColor = pageElement.getAttribute("data-background-color") ?? '';
+          json.href = pageElement.querySelector("a")?.getAttribute("href");
+        }
+        const titleElement = element.querySelector(".--title");
+        if (titleElement) {
+          const titleText = titleElement.textContent.trim();
+          json.title = titleText;
+        }
+        const commentElement = element.querySelector(".--comment");
+        if (commentElement) {
+          const commentText = Array.from(commentElement.childNodes).map((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              return node.textContent.trim();
+            } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName === "BR") {
+              return "<br>";
+            }
+            return "";
+          }).join("");
+          json.comment = commentText;
+        }
+        const childUL = element.querySelector("ul");
+        if (childUL) {
+          json.children = Array.from(childUL.children).map(convertElementToJSON);
+        }
+        return json;
+      }
+      const childList = Array.from(element.children);
+      const mainTitle = document.querySelector('.c-pageLists__coverItem .--mainTitle');
+      const mainComment = document.querySelector('.c-pageLists__coverItem .--mainComment');
+      const exportJSON = {
+        title: mainTitle.textContent,
+        explanation: mainComment.textContent,
+        data: childList.map((child) => convertElementToJSON(child))
+      };
+      const data = JSON.stringify(exportJSON, null, 2);
+      const blob = new Blob([data], {
+        type: "application/json"
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = 'siteMap_' + Date.now() + '.json';
+      link.click();
+    }
+
+    function loadJSON() {
+      var jsonInput = document.getElementById('jsonInput');
+      var file = jsonInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          var content = e.target.result;
+          var jsonData = JSON.parse(content);
+          buildList(jsonData);
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    function buildList(jsonData, add = false) {
+      const pageListElement = document.querySelector('.c-pageLists__list ul');
+      var html = '';
+      try {
+        if (add) {
+          html = rebuildHTML(jsonData.data);
+          html.querySelectorAll('[data-item-number]').forEach(item => {
+            itemId++;
+            item.setAttribute('data-item-number', itemId);
+          });
+          pageListElement.insertAdjacentHTML('afterbegin', html.innerHTML);
+        } else {
+          const headElement = document.querySelector(".c-pageLists__coverItem");
+          if (jsonData.title) {
+            headElement.querySelector(".--mainTitle").innerHTML = jsonData.title;
+          }
+          if (jsonData.explanation) {
+            headElement.querySelector(".--mainComment").innerHTML = jsonData.explanation;
+          }
+          if (Object.keys(jsonData.data).length !== 0) {
+            html = rebuildHTML(jsonData.data);
+          }
+          pageListElement.innerHTML = html.innerHTML;
+        }
+      } catch (error) {
+        alert('JSONの読み込みに失敗しました。');
+        return false;
+      }
+      pageListArrange();
+      counterPage();
+      updateItemId();
+      moveLock();
+    }
+
+    function rebuildHTML(pageData) {
+      function buildPageElement(pageData) {
+        const pageWrapperElement = document.createElement('div');
+        pageWrapperElement.classList.add('--pageWrapper');
+        const pageElement = document.createElement('div');
+        pageElement.classList.add('--page');
+        pageElement.setAttribute('draggable', 'true');
+        if (pageData.classNames) {
+          const escapedClassNames = pageData.classNames.map(className => __Escape(className));
+          pageElement.classList.add(...escapedClassNames);
+        }
+        const itemNumberAttr = document.createAttribute('data-item-number');
+        itemNumberAttr.value = __Escape(pageData.dataItemNumber);
+        pageElement.setAttributeNode(itemNumberAttr);
+        const itemBorderColorAttr = document.createAttribute('data-border-color');
+        itemBorderColorAttr.value = __Escape(pageData.dataItemBorderColor);
+        pageElement.setAttributeNode(itemBorderColorAttr);
+        const itemBackgroundColorAttr = document.createAttribute('data-background-color');
+        itemBackgroundColorAttr.value = __Escape(pageData.dataItemBackgroundColor);
+        pageElement.setAttributeNode(itemBackgroundColorAttr);
+        const titleElement = document.createElement('p');
+        titleElement.classList.add('--title');
+        if (pageData.href) {
+          const linkElement = document.createElement('a');
+          linkElement.classList.add('--url');
+          linkElement.href = __Escape(pageData.href);
+          linkElement.target = '_blank';
+          linkElement.rel = 'noopener noreferrer';
+          linkElement.innerHTML = __Escape(pageData.title);
+          titleElement.appendChild(linkElement);
+        } else {
+          titleElement.innerHTML = __Escape(pageData.title);
+        }
+        pageElement.appendChild(titleElement);
+        if (pageData.comment !== undefined) {
+          const commentElement = document.createElement('div');
+          commentElement.classList.add('--comment');
+          commentElement.innerHTML = __Escape(pageData.comment).replace(/&lt;br&gt;/g, "<br>");
+          pageElement.appendChild(commentElement);
+        }
+        const delElement = document.createElement('span');
+        delElement.classList.add('--del');
+        pageElement.appendChild(delElement);
+        const updateElement = document.createElement('span');
+        updateElement.classList.add('--update');
+        pageElement.appendChild(updateElement);
+        pageWrapperElement.appendChild(pageElement);
+        return pageWrapperElement;
+      }
+
+      function buildNestedList(pages) {
+        const ulElement = document.createElement('ul');
+        for (let i = 0; i < pages.length; i++) {
+          const pageData = pages[i];
+          const liElement = document.createElement('li');
+          const pageWrapperElement = buildPageElement(pageData);
+          liElement.appendChild(pageWrapperElement);
+          if (pageData.children && pageData.children.length > 0) {
+            const nestedListElement = buildNestedList(pageData.children);
+            liElement.appendChild(nestedListElement);
+          }
+          ulElement.appendChild(liElement);
+        }
+        return ulElement;
+      }
+      const pageListElement = buildNestedList(pageData);
+      //const pageListElement = buildNestedList([pageData]);
+      return pageListElement;
+    }
+
+    function dispOptionsList() {
+      document.querySelectorAll('.dispOption').forEach(element => {
+        setDispOption(element, 'dispOption');
+      });
+    }
+
+    function setDispOption(element, dispOption) {
+      Object.keys(DispOptions).forEach(function(item) {
+        const radioTemplate = document.getElementById('radioTemplate');
+        var radioItem = radioTemplate.content.cloneNode(true);
+        radioItem.querySelector('input').value = item;
+        radioItem.querySelector('input').name = dispOption;
+        radioItem.querySelector('span').textContent = DispOptions[item].name;
+        element.appendChild(radioItem);
+      });
+    }
+
+    function buildColorList() {
+      document.querySelectorAll('.colorList').forEach(element => {
+        setColorOption(element);
+      });
+    }
+
+    function setColorOption(element) {
+      Object.keys(Colors).forEach(function(item) {
+        var createOptionElement = document.createElement('option');
+        createOptionElement.value = item;
+        createOptionElement.textContent = Colors[item].name;
+        element.appendChild(createOptionElement);
+      });
+    }
+
+    function buildModuleList() {
+      const moduleTemplate = document.getElementById('moduleTemplate');
+      fetch('data.json').then(response => {
+        if (!response.ok) {
+          throw new Error('JSONの読み込みに失敗しました。[' + response.status + ']');
+        }
+        return response.json();
+      }).then(data => {
+        moduleData = data;
+        if (typeof moduleData == 'undefined' || moduleData.length == 0) {
+          document.querySelector('.c-pageLists__component').remove();
+        } else {
+          moduleData.forEach(function(item, index) {
+            var moduleItem = moduleTemplate.content.cloneNode(true);
+            moduleItem.querySelector('input').value = index;
+            moduleItem.querySelector('.c-radio__title').textContent = item.title;
+            moduleItem.querySelector('.u-text-suppl').textContent = item.comment;
+            document.querySelector('.c-moduleChoice').appendChild(moduleItem);
+          });
+        }
+      }).catch(error => {
+        console.log('Failed to load JSON: ' + error);
+        document.querySelector('.c-pageLists__component').remove();
+      });
+    }
+
+    function updateItemId() {
+      const pageListElement = document.querySelector('.c-pageLists__list ul');
+      var maxNumber = 0;
+      pageListElement.querySelectorAll('[data-item-number]').forEach(item => {
+        var itemNumber = parseInt(item.getAttribute('data-item-number'));
+        if (itemNumber > maxNumber) {
+          maxNumber = itemNumber;
+        }
+      });
+      itemId = maxNumber;
+    }
+
+    function removeNewItem() {
+      document.querySelectorAll('.--new').forEach(function(item) {
+        item.classList.remove('--new');
+      });
+    }
+
+    function moveLock() {
+      const pageListElement = document.querySelector('.c-pageLists__list ul');
+      const moveLockItem = document.querySelector('#moveLock');
+      const listArea = document.querySelector('.c-pageLists__list');
+      pageListElement.querySelectorAll("[draggable]").forEach(function(item) {
+        if (moveLockItem.checked) {
+          item.setAttribute("draggable", "false");
+        } else {
+          item.setAttribute("draggable", "true");
+        }
+      });
+      if (moveLockItem.checked) {
+        listArea.classList.add('is-lock');
+      } else {
+        listArea.classList.remove('is-lock');
+      }
+    }
+    // 全体のitem数をカウント
+    function counterPage() {
+      pages = document.querySelectorAll('.--page').length;
+      document.querySelector('.itemCount').textContent = pages
+    }
+    // ブラウザの履歴に保存
+    function historyPage() {
+      var pageList = appPageList.outerHTML;
+      var stateObj = {
+        pageList: pageList
+      };
+      var title = "Page :" + Date.now();
+      var newUrl = "#__with__" + Date.now() + '__';
+      history.pushState(stateObj, title, newUrl);
+    }
+
+    function isValidURL(string) {
+      try {
+        new URL(string);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function __Escape(text) {
+      if (text) {
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+      return text;
+    }
+
+    function __Unescape(text) {
+      return text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+    }
+  </script>
+</body>
+
+</html>

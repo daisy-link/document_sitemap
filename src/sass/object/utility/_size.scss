@@ -1,0 +1,23 @@
+@use "../../module/import" as *;
+/*
+*
+* icon
+*
+*/
+.u-icon {
+    display: inline-block;
+    &.--load {
+        padding-right: 20px;
+        background-image: url(../images/icon_load.svg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-size: 14px;
+    }
+    &.--download {
+        padding-right: 20px;
+        background-image: url(../images/icon_download.svg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-size: 14px;
+    }
+}
