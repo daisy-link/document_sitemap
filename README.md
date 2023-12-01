@@ -9,4 +9,4 @@ npm install --d
 make gulp
 ```
 
-※ npm install や　gulp 利用しなくても、```dist/index.html```　をブラウザでひらけば基本動きます。
+※ npm installやgulp利用しなくても、```dist/index.html```　をブラウザでひらけば基本動きます。
