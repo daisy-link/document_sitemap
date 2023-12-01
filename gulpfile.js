@@ -47,7 +47,7 @@ const browserSync = require("browser-sync");
 /** exports setting */
 const paths = {
   src: "src",
-  dest: "dist",
+  dest: "docs",
   assets: "dist/assets",
 };
 
